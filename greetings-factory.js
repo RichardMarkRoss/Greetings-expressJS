@@ -35,7 +35,6 @@ function GreetingsFactory(storedUsers){
           alert('insert name and language');
         }
 
-
     return greet;
   }else{
     alert('Please insert name and language');
