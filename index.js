@@ -1,8 +1,8 @@
 const exphbs = require('express-handlebars');
 const express = require('express');
 const app = express();
-const settingBill = require('./settings');
-const settings = settingBill();
+const greetingsFactory = require('./greetings-factory');
+const greetings = greetingsFactory();
 // let moment = require("moment");
 const bodyParser = require('body-parser');
 
@@ -22,15 +22,18 @@ app.use(express.static('public'));
 
 app.get('/', function (req, res) {
   
+    let setValues = greetings.returnValues();
+    greetings.returnName(req.body.placeName);
 
-    res.render('', {
-      
+    res.render('home', {
+        setValues
     });
 });
 
-app.post('/', function (req, res) {
-
+app.post('/greet', function (req, res) {
+    greetings.returnName(req.body.placeName);
     res.redirect('/');
+
 });
 
 app.post('/', function (req, res) {
@@ -39,16 +42,11 @@ app.post('/', function (req, res) {
     res.redirect('/');
 });
 
-app.get('/', function (req, res) {
+app.get('/actions/:type', function (req, res) {
+    const type = req.params.type;
     res.render('', {
         
 
-    });
-});
-app.get('', function (req, res) {
-    
-    res.render('', {
-        
     });
 });
 

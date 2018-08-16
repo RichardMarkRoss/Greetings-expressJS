@@ -1,32 +1,42 @@
-function GreetingsFactory(storedUsers){
+module.exports = function (storedUsers){
   var namesStored = storedUsers||{};
   var GreeterCount = 0;
   var holdName = "";
   var greet = '';
 
+  let holdBill = [];
+
   function GreetingTheLogic(name, langChosen){
+    var newDates = Moment(new Date()).fromNow();
+    let names = {
+        'type': langChosen,
+        'date': newDates
+    };
 
         if(storedUsers){
           namesStored = storedUsers;
         }
         if (isNaN(name) && name != ""){
             
-            holdName = name.toUpperCase();
+          holdName = name.toUpperCase();
 
         if (langChosen == 'english'){
           greet = 'HELLO '+ holdName;
+          names.name = greet
           if (namesStored[holdName] === undefined){
             namesStored[holdName] = 0;
             }
 
         }else if(langChosen == 'afrikaans'){
           greet = 'GOEIE DAG ' + holdName;
+          names.name = greet
           if (namesStored[holdName] === undefined){
             namesStored[holdName] = 0;
             }
 
         }else if (langChosen == 'isiXhosa'){
           greet = 'USUKU OLUMNWANDI ' + holdName;
+          names.name = greet
           if (namesStored[holdName] === undefined){
             namesStored[holdName] = 0;
             }
@@ -34,11 +44,16 @@ function GreetingsFactory(storedUsers){
         } else{
           alert('insert name and language');
         }
+        holdBill.push(names)
 
     return greet;
   }else{
     alert('Please insert name and language');
   }
+}
+function returnName(){
+  return holdName
+
 }
 
   function TheGreetCounter(){
@@ -53,12 +68,23 @@ function GreetingsFactory(storedUsers){
     namesStored ={};
    localStorage.clear();
   }
+  function returnValues () {
+    return {
+      namesStored,
+      GreeterCount,
+      holdName,
+      greet
+    };
+}
+
 
   return{
     GreetingTheLogic,
     TheGreetCounter,
     ReturnMap,
     Clear,
+    returnValues,
+    returnName,
   };
 
 }
