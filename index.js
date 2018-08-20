@@ -37,8 +37,11 @@ app.post('/greet', function (req, res) {
     });
 });
 app.get('/actions', function (req, res) {
+    let theName = greetings.returnName();
+    let theCount = greetings.TheGreetCounter();
     res.render('actions', {
-        theList: greetings.holdBill
+        theName,
+        theCount
     });
 });
 let PORT = process.env.PORT || 4009;
