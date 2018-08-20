@@ -1,90 +1,92 @@
-module.exports = function (storedUsers){
-  var namesStored = storedUsers||{};
-  var GreeterCount = 0;
-  var holdName = "";
-  var greet = '';
+// let Moment = require('moment');
+module.exports = function (storedUsers) {
+    var namesStored = storedUsers || {};
+    var GreeterCount = 0;
+    var holdName = '';
+    var greet = '';
+    let langchose = '';
+    let holdBill = [];
 
-  let holdBill = [];
+    function GreetingTheLogic (name, langChosen) {
+        var newDates = new Date(); // Moment().fromNow();
+        let names = {
+            'type': langchose,
+            'date': newDates
+        };
 
-  function GreetingTheLogic(name, langChosen){
-    var newDates = Moment(new Date()).fromNow();
-    let names = {
-        'type': langChosen,
-        'date': newDates
-    };
+        langchose = langChosen;
 
-        if(storedUsers){
-          namesStored = storedUsers;
+        if (storedUsers) {
+            namesStored = storedUsers;
         }
-        if (isNaN(name) && name != ""){
-            
-          holdName = name.toUpperCase();
+        if (isNaN(name) && name != '') {
+            holdName = name.toUpperCase();
 
-        if (langChosen == 'english'){
-          greet = 'HELLO '+ holdName;
-          names.name = greet
-          if (namesStored[holdName] === undefined){
-            namesStored[holdName] = 0;
+            if (langchose == 'english') {
+                greet = 'HELLO ' + holdName;
+                names.name = greet;
+                if (namesStored[holdName] === undefined) {
+                    namesStored[holdName] = 0;
+                }
+            } else if (langchose == 'afrikaans') {
+                greet = 'GOEIE DAG ' + holdName;
+                names.name = greet;
+                if (namesStored[holdName] === undefined) {
+                    namesStored[holdName] = 0;
+                }
+            } else if (langchose == 'isiXhosa') {
+                greet = 'USUKU OLUMNWANDI ' + holdName;
+                names.name = greet;
+                if (namesStored[holdName] === undefined) {
+                    namesStored[holdName] = 0;
+                }
+            } else {
+                return 'insert name and language';
             }
+            holdBill.push(names);
 
-        }else if(langChosen == 'afrikaans'){
-          greet = 'GOEIE DAG ' + holdName;
-          names.name = greet
-          if (namesStored[holdName] === undefined){
-            namesStored[holdName] = 0;
-            }
-
-        }else if (langChosen == 'isiXhosa'){
-          greet = 'USUKU OLUMNWANDI ' + holdName;
-          names.name = greet
-          if (namesStored[holdName] === undefined){
-            namesStored[holdName] = 0;
-            }
-
-        } else{
-          alert('insert name and language');
+            return greet;
+        } else {
+            return 'Please insert name and language';
         }
-        holdBill.push(names)
+    }
 
-    return greet;
-  }else{
-    alert('Please insert name and language');
-  }
-}
-function returnName(){
-  return holdName
+    function returnName () {
+        return holdName;
+    }
 
-}
+    function TheGreetCounter () {
+        GreeterCount = Object.keys(namesStored).length;
+        return GreeterCount;
+    }
 
-  function TheGreetCounter(){
-       GreeterCount = Object.keys(namesStored).length;
-    return GreeterCount;
-  }
+    function ReturnMap () {
+        return namesStored;
+    }
 
-  function ReturnMap(){
-    return namesStored;
-  }
-  function Clear(){
-    namesStored ={};
-   localStorage.clear();
-  }
-  function returnValues () {
+    function returnLang () {
+        return langchose;
+    }
+    // function Clear () {
+    //     namesStored = {};
+    //     localStorage.clear();
+    // }
+
+    function returnValues () {
+        return {
+            namesStored,
+            GreeterCount,
+            holdName,
+            greet
+        };
+    }
+
     return {
-      namesStored,
-      GreeterCount,
-      holdName,
-      greet
+        GreetingTheLogic,
+        TheGreetCounter,
+        ReturnMap,
+        returnValues,
+        returnName,
+        returnLang
     };
-}
-
-
-  return{
-    GreetingTheLogic,
-    TheGreetCounter,
-    ReturnMap,
-    Clear,
-    returnValues,
-    returnName,
-  };
-
-}
+};
