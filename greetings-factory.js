@@ -1,40 +1,38 @@
 // let Moment = require('moment');
-module.exports = function (storedUsers) {
+module.exports = function (storedUsers) { // take out this param
     var namesStored = storedUsers || {};
     var GreeterCount = 0;
     var holdName = '';
-    var greet = '';
-    let langchose = '';
+    
     let holdBill = [];
 
     function GreetingTheLogic (name, langChosen) {
         var newDates = new Date(); // Moment().fromNow();
+        let langchose = langChosen;
+        var greet = '';
         let names = {
-            'type': langchose,
             'date': newDates
         };
-
-        langchose = langChosen;
 
         if (storedUsers) {
             namesStored = storedUsers;
         }
-        if (isNaN(name) && name != '') {
+        if (isNaN(name) && name !== '') {
             holdName = name.toUpperCase();
 
-            if (langchose == 'english') {
+            if (langchose === 'english') {
                 greet = 'HELLO ' + holdName;
                 names.name = greet;
                 if (namesStored[holdName] === undefined) {
                     namesStored[holdName] = 0;
                 }
-            } else if (langchose == 'afrikaans') {
+            } else if (langchose === 'afrikaans') {
                 greet = 'GOEIE DAG ' + holdName;
                 names.name = greet;
                 if (namesStored[holdName] === undefined) {
                     namesStored[holdName] = 0;
                 }
-            } else if (langchose == 'isiXhosa') {
+            } else if (langchose === 'isiXhosa') {
                 greet = 'USUKU OLUMNWANDI ' + holdName;
                 names.name = greet;
                 if (namesStored[holdName] === undefined) {
@@ -67,17 +65,12 @@ module.exports = function (storedUsers) {
     function returnLang () {
         return langchose;
     }
-    // function Clear () {
-    //     namesStored = {};
-    //     localStorage.clear();
-    // }
 
     function returnValues () {
         return {
             namesStored,
             GreeterCount,
-            holdName,
-            greet
+            holdName
         };
     }
 

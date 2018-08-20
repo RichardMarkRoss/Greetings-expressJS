@@ -19,25 +19,28 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-
-    greetings.returnName(req.body.placeName);
-    let setValues = greetings.returnValues();
-
+    let returnValues = greetings.returnValues();
     res.render('home', {
-        setValues
+        returnValues
+
+    });
+    console.log(returnValues);
+});
+app.post('/greet', function (req, res) {
+    let type = req.body.lang;
+    let name = req.body.name;
+    let greetMessage = greetings.GreetingTheLogic(name, type);
+    let theGreetings = greetings.TheGreetCounter();
+    res.render('home', {
+        greetMessage,
+        theGreetings
     });
 });
-
-app.post('/greet', function (req, res) {
-    // let type = req.body.langTypeRadio;
-    // displayName: greetings.returnLang(type)
-    res.redirect('/');
+app.get('/actions', function (req, res) {
+    res.render('actions', {
+        theList: greetings.holdBill
+    });
 });
-
-app.post('/', function (req, res) {
-    res.redirect('/');
-});
-
 let PORT = process.env.PORT || 4009;
 
 app.listen(PORT, function () {

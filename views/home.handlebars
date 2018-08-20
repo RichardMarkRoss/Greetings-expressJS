@@ -9,16 +9,16 @@
                 </span>
             </div>
             <label>Name</label>
-            <form action="/" method='post'>
-                <input type="text" class="myText" value="{{setValues.holdName}}">
-            </form>
-            <span class="counter">counter:
+            <form action="/greet" method='post'>
+                <input type="text" name ="name" class="myText" value="{{setValues.holdName}}">
+            
+            <span class="counter">counter: {{theGreetings}}
                 <span class="displayTheCount"></span>
             </span>
         </p>
     </div>
     <div class="radioBtnDiv">
-        <form action="/" method='post'>
+       
             <input type="radio" class="langTypeRadio" name="lang" value="english">
             <a href="/actions/english"></a>English</a>
             </input>
@@ -28,33 +28,32 @@
             <input type="radio" class="langTypeRadio" name="lang" value="isiXhosa">
             <a href="/actions/isiXhosa"></a>isiXhosa</a>
             </input>
-        </form>
+        
     </div>
     <br>
     <div class="box2">
-        <form action="/greet" method='post'>
+        
             <button class="btnDisplayValue button" type="submit" name="placeName">
                 <span>Greet</span>
             </button>
         </form>
-        <form action="" method='post'>
+        <form action="/reset" method='post'>
             <button class="btnResetValue button" type="submit" name="button">
                 <span>Reset</span>
             </button>
-            </from>>
+            </form>
+            <form href="/actions" action="/actions" method='post'>
+                <button class="btnResetValue button" type="submit" name="actions">
+                    <span>status</span>
+                </button>
+            </form>
     </div>
     <br>
 
     <div class="box4">
         <span class="counter ">
             <span class="displayTheCount">
-                <script type="text/x-template" class="regTemplate">
-
-    {{#each displayName}}
-    <li>{{this}}</li>
-    {{/each}}
-
-                 </script>
+               {{greetMessage}}
             </span>
         </span>
     </div>
