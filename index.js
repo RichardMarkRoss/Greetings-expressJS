@@ -24,7 +24,6 @@ app.get('/', function (req, res) {
         returnValues
 
     });
-    console.log(returnValues);
 });
 app.post('/greet', function (req, res) {
     let type = req.body.lang;
