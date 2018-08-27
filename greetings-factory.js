@@ -3,7 +3,7 @@ module.exports = function (storedUsers) { // take out this param
     var namesStored = storedUsers || {};
     var GreeterCount = 0;
     var holdName = '';
-    
+
     let holdBill = [];
 
     function GreetingTheLogic (name, langChosen) {
@@ -66,6 +66,10 @@ module.exports = function (storedUsers) { // take out this param
         return langchose;
     }
 
+    function filterRecords (type) {
+        return holdBill.filter(record => record.type === type);
+    }
+
     function returnValues () {
         return {
             namesStored,
@@ -80,6 +84,7 @@ module.exports = function (storedUsers) { // take out this param
         ReturnMap,
         returnValues,
         returnName,
-        returnLang
+        returnLang,
+        filterRecords
     };
 };
