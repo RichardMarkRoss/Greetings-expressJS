@@ -2,7 +2,7 @@ const exphbs = require('express-handlebars');
 const express = require('express');
 const app = express();
 const greetingsFactory = require('./greetings-factory');
-const greetings = greetingsFactory();
+
 const bodyParser = require('body-parser');
 // const flash = require('express-flash');
 // const session = require('express-session');
@@ -23,6 +23,8 @@ const pool = new Pool({
     ssl: useSSL
 });
 
+const greetings = greetingsFactory(pool);
+
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
@@ -36,7 +38,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static('public'));
 
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
     let returnValues = greetings.returnValues();
     res.render('home', {
         returnValues
@@ -46,17 +48,19 @@ app.get('/', function (req, res) {
 app.post('/greet', async function (req, res) {
     let type = req.body.lang;
     let name = req.body.name;
-    let greetMessage = greetings.GreetingTheLogic(name, type);
-    let theGreetings = greetings.TheGreetCounter();
-    await pool.query('insert into hold_name (names, lang_greeted) values ($1, $2)', [name, type]);
+    let greetMessage = await greetings.greet(name, type);
+    let theGreetCounter = await greetings.TheGreetCounter();
     res.render('home', {
         greetMessage,
-        theGreetings
+        theGreetCounter
     });
 });
-app.post('/greet/:type', function (req, res) {
+app.post('/greet/:name/:type', function (req, res) {
     let type = req.params.type;
-    let greetMessage = greetings.GreetingTheLogic(type, 'english');
+    let names = req.params.name;
+    // console.log(names);
+    // console.log(type);
+    let greetMessage = greetings.greet(names, type);
     let theGreetings = greetings.TheGreetCounter();
     res.render('home', {
         greetMessage,
@@ -71,6 +75,17 @@ app.get('/greeted', async function (req, res) {
         res.send(err.stack);
     }
 });
+// app.get('/list', function (req, res) {
+//     res.render('home', {
+//         _names: ,
+//         get names() {
+//             return this._names;
+//         },
+//         set names(value) {
+//             this._names = value;
+//         },
+//     });
+// });
 
 app.get('/reset', async function (req, res) {
     await pool.query('delete from hold_name;');

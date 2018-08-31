@@ -1,47 +1,25 @@
-// let Moment = require('moment');
-module.exports = function (storedUsers) { // take out this param
-    var namesStored = storedUsers || {};
+module.exports = function (pool) {
     var GreeterCount = 0;
     var holdName = '';
 
     let holdBill = [];
 
-    function GreetingTheLogic (name, langChosen) {
-        var newDates = new Date(); // Moment().fromNow();
+    async function greet (name, langChosen) {
         let langchose = langChosen;
         var greet = '';
-        let names = {
-            'date': newDates
-        };
 
-        if (storedUsers) {
-            namesStored = storedUsers;
-        }
         if (isNaN(name) && name !== '') {
             holdName = name.toUpperCase();
-
+            await pool.query('insert into hold_name (names) values ($1)', [holdName]);
             if (langchose === 'english') {
                 greet = 'HELLO ' + holdName;
-                names.name = greet;
-                if (namesStored[holdName] === undefined) {
-                    namesStored[holdName] = 0;
-                }
             } else if (langchose === 'afrikaans') {
                 greet = 'GOEIE DAG ' + holdName;
-                names.name = greet;
-                if (namesStored[holdName] === undefined) {
-                    namesStored[holdName] = 0;
-                }
             } else if (langchose === 'isiXhosa') {
                 greet = 'USUKU OLUMNWANDI ' + holdName;
-                names.name = greet;
-                if (namesStored[holdName] === undefined) {
-                    namesStored[holdName] = 0;
-                }
             } else {
-                return 'insert name and language';
+                return 'Please insert name and language';
             }
-            holdBill.push(names);
 
             return greet;
         } else {
@@ -49,42 +27,31 @@ module.exports = function (storedUsers) { // take out this param
         }
     }
 
-    function returnName () {
+    async function returnName () {
         return holdName;
     }
 
-    function TheGreetCounter () {
-        GreeterCount = Object.keys(namesStored).length;
+    async function TheGreetCounter () {
+        GreeterCount = await pool.query('select count(*) from hold_name;');
         return GreeterCount;
     }
 
-    function ReturnMap () {
-        return namesStored;
-    }
-
-    function returnLang () {
-        return langchose;
-    }
-
-    function filterRecords (type) {
+    async function filterRecords (type) {
         return holdBill.filter(record => record.type === type);
     }
 
-    function returnValues () {
+    async function returnValues () {
         return {
-            namesStored,
             GreeterCount,
             holdName
         };
     }
 
     return {
-        GreetingTheLogic,
+        greet,
         TheGreetCounter,
-        ReturnMap,
         returnValues,
         returnName,
-        returnLang,
         filterRecords
     };
 };

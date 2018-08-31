@@ -1,8 +1,11 @@
 <div>
 
 <div class="thelist">
-<h3>you have click on the name {{theName}} {{theCount}}</h3>
-
+{{#each names}}
+<ul>
+    <li>{{id}}{{name}}{{lang}}</li>
+</ul>
+{{/each}}
 </div>
 
 
