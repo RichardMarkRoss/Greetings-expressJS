@@ -4,13 +4,13 @@ module.exports = function (pool) {
 
     let holdBill = [];
 
-    async function greet (name, langChosen) {
+    async function greet(name, langChosen) {
         let langchose = langChosen;
         var greet = '';
 
         if (isNaN(name) && name !== '') {
             holdName = name.toUpperCase();
-            await pool.query('insert into hold_name (names) values ($1)', [holdName]);
+            await pool.query('insert into hold_name (names, counter) values ($1, $2)', [holdName, 1]);
             if (langchose === 'english') {
                 greet = 'HELLO ' + holdName;
             } else if (langchose === 'afrikaans') {
@@ -27,20 +27,20 @@ module.exports = function (pool) {
         }
     }
 
-    async function returnName () {
+    async function returnName() {
         return holdName;
     }
 
-    async function TheGreetCounter () {
+    async function TheGreetCounter() {
         GreeterCount = await pool.query('select count(*) from hold_name;');
         return GreeterCount;
     }
 
-    async function filterRecords (type) {
+    async function filterRecords(type) {
         return holdBill.filter(record => record.type === type);
     }
 
-    async function returnValues () {
+    async function returnValues() {
         return {
             GreeterCount,
             holdName

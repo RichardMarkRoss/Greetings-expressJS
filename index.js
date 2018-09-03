@@ -39,28 +39,27 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 
 app.get('/', async function (req, res) {
-    await pool.query('update hold_name from names');
+    
     let returnValues = greetings.returnValues();
     res.render('home', {
         returnValues
-
     });
 });
 app.post('/greet', async function (req, res) {
     let type = req.body.lang;
     let name = req.body.name;
+    let addNames = await pool.query('update hold_name set counter = counter+1 where names = names');
     let greetMessage = await greetings.greet(name, type);
     let theGreetCounter = await greetings.TheGreetCounter();
     res.render('home', {
         greetMessage,
-        theGreetCounter
+        theGreetCounter,
+        addNames
     });
 });
 app.post('/greet/:name/:type', function (req, res) {
     let type = req.params.type;
     let names = req.params.name;
-    // console.log(names);
-    // console.log(type);
     let greetMessage = greetings.greet(names, type);
     let theGreetings = greetings.TheGreetCounter();
     res.render('home', {
@@ -76,17 +75,6 @@ app.get('/greeted', async function (req, res) {
         res.send(err.stack);
     }
 });
-// app.get('/list', function (req, res) {
-//     res.render('home', {
-//         _names: ,
-//         get names() {
-//             return this._names;
-//         },
-//         set names(value) {
-//             this._names = value;
-//         },
-//     });
-// });
 
 app.get('/reset', async function (req, res) {
     await pool.query('delete from hold_name;');

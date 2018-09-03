@@ -1,12 +1,14 @@
-<div>
-
-<div class="thelist">
-{{#each names}}
-<ul>
-    <li>{{id}}{{name}}{{lang}}</li>
-</ul>
-{{/each}}
-</div>
-
-
-</div>>
+<table>
+    <tr>
+        <th>id</th>
+        <th>names greeted</th>
+        <th>amount names counted</th>
+    </tr>
+    {{#each names}}
+    <tr>
+        <td>{{id}}</td>
+        <td>{{names}}</td>
+        <td>{{counter}}</td>
+    </tr>
+    {{/each}}
+</table>
