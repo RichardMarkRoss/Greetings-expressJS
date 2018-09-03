@@ -39,6 +39,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 
 app.get('/', async function (req, res) {
+    await pool.query('update hold_name from names');
     let returnValues = greetings.returnValues();
     res.render('home', {
         returnValues
