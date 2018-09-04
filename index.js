@@ -41,32 +41,36 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 
 app.get('/', async function (req, res) {
-    res.render('home', {
-    });
+    res.render('home', {});
 });
 app.post('/greet', async function (req, res) {
     let type = req.body.lang;
     let name = req.body.name;
     let greetMessage = greetings.greet(name, type);
     greetingsData.dataHeld(name);
-    let theGreetCounter = greetingsData.TheGreetCounter();
+    let theGreetCounter = await greetingsData.TheGreetCounter();
     res.render('home', {
         greetMessage,
         theGreetCounter
     });
 });
-app.post('/greet/:name/:type', function (req, res) {
-    let type = req.params.type;
+app.get('/greeted/:name/', async function (req, res) {
     let names = req.params.name;
-    let greetMessage = greetings.greet(names, type);
-    res.render('home', {
-        greetMessage
-    });
+    try {
+        let result = await pool.query('select * from hold_name where names = $1', [names]);
+        res.render('names', {
+            names: result.rows
+        });
+    } catch (err) {
+        res.send(err.stack);
+    }
 });
 app.get('/greeted', async function (req, res) {
     try {
         let result = await pool.query('select * from hold_name');
-        res.render('list', {names: result.rows});
+        res.render('list', {
+            names: result.rows
+        });
     } catch (err) {
         res.send(err.stack);
     }

@@ -1,3 +1,4 @@
+<form>
 <table>
     <tr>
         <th>names</th>
@@ -5,8 +6,9 @@
     </tr>
     {{#each names}}
     <tr>
-        <td>{{names}}</td>
+        <td><a href="./greeted/{{names}}">{{names}}</a></td>
         <td>{{counter}}</td>
     </tr>
     {{/each}}
 </table>
+</form>

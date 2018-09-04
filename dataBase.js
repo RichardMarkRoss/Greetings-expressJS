@@ -11,7 +11,6 @@ module.exports = function (pool) {
     async function TheGreetCounter () {
         let GreeterCount = await pool.query('select count(*) from hold_name;');
         let counting = GreeterCount.rows[0].count;
-        console.log(counting);
         return counting;
     };
 
