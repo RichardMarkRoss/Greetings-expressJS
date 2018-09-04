@@ -2,6 +2,7 @@ const exphbs = require('express-handlebars');
 const express = require('express');
 const app = express();
 const greetingsFactory = require('./greetings-factory');
+const greetingsDataBase = require('./dataBase');
 
 const bodyParser = require('body-parser');
 // const flash = require('express-flash');
@@ -24,6 +25,7 @@ const pool = new Pool({
 });
 
 const greetings = greetingsFactory(pool);
+const greetingsData = greetingsDataBase(pool);
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
@@ -39,38 +41,32 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 
 app.get('/', async function (req, res) {
-    
-    let returnValues = greetings.returnValues();
     res.render('home', {
-        returnValues
     });
 });
 app.post('/greet', async function (req, res) {
     let type = req.body.lang;
     let name = req.body.name;
-    let addNames = await pool.query('update hold_name set counter = counter+1 where names = names');
-    let greetMessage = await greetings.greet(name, type);
-    let theGreetCounter = await greetings.TheGreetCounter();
+    let greetMessage = greetings.greet(name, type);
+    greetingsData.dataHeld(name);
+    let theGreetCounter = greetingsData.TheGreetCounter();
     res.render('home', {
         greetMessage,
-        theGreetCounter,
-        addNames
+        theGreetCounter
     });
 });
 app.post('/greet/:name/:type', function (req, res) {
     let type = req.params.type;
     let names = req.params.name;
     let greetMessage = greetings.greet(names, type);
-    let theGreetings = greetings.TheGreetCounter();
     res.render('home', {
-        greetMessage,
-        theGreetings
+        greetMessage
     });
 });
 app.get('/greeted', async function (req, res) {
     try {
         let result = await pool.query('select * from hold_name');
-        res.json(result.rows);
+        res.render('list', {names: result.rows});
     } catch (err) {
         res.send(err.stack);
     }
