@@ -41,7 +41,10 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 
 app.get('/', async function (req, res) {
-    res.render('home', {});
+    let theGreetCounter = await greetingsData.TheGreetCounter();
+    res.render('home', {
+        theGreetCounter
+    });
 });
 app.post('/greet', async function (req, res) {
     let type = req.body.lang;

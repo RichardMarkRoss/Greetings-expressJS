@@ -37,11 +37,20 @@
                 <span>Greet</span>
             </button>
         </form>
+        <br>
         <form action="/reset" method='get'>
             <button class="btnResetValue button" type="submit" name="button">
                 <span>Reset</span>
             </button>
             </form>
+                <div class="box4">
+                    <span class="counter ">
+                        <span class="displayTheCount">
+                            {{greetMessage}}
+                        </span>
+                    </span>
+                </div>
+            <br>
             <form action="/greeted" method='get'>
                 <button class="btnResetValue button" type="submit" name="actions">
                     <span>status</span>
@@ -50,11 +59,5 @@
     </div>
     <br>
 
-    <div class="box4">
-        <span class="counter ">
-            <span class="displayTheCount">
-               {{greetMessage}}
-            </span>
-        </span>
-    </div>
+
 </body>
