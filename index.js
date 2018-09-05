@@ -50,7 +50,7 @@ app.post('/greet', async function (req, res) {
     let type = req.body.lang;
     let name = req.body.name;
     let greetMessage = greetings.greet(name, type);
-    greetingsData.dataHeld(name);
+    await greetingsData.dataHeld(name);
     let theGreetCounter = await greetingsData.TheGreetCounter();
     res.render('home', {
         greetMessage,
