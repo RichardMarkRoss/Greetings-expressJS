@@ -5,15 +5,15 @@ const theGreetingsVar = tester();
 describe('the greetings function basic test', function () {
     it('greetings function test greeting in English', function () {
 
-        assert.equal(theGreetingsVar.GreetingTheLogic('Richard', "english"), "HELLO RICHARD");
+        assert.equal(theGreetingsVar.greet('Richard', "english"), "HELLO RICHARD");
     });
     it('greetings function test greeting in Afrikaans', function () {
 
-        assert.equal(theGreetingsVar.GreetingTheLogic('Richard', "afrikaans"), "GOEIE DAG RICHARD");
+        assert.equal(theGreetingsVar.greet('Richard', "afrikaans"), "GOEIE DAG RICHARD");
     });
     it('greetings function test greeting in isiXhosa', function () {
 
-        assert.equal(theGreetingsVar.GreetingTheLogic('Richard', "isiXhosa"), "USUKU OLUMNWANDI RICHARD");
+        assert.equal(theGreetingsVar.greet('Richard', "isiXhosa"), "USUKU OLUMNWANDI RICHARD");
     });
 });
 describe('the greetings function testing the counter', function () {
