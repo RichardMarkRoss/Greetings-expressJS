@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "v8.9.4"
   env:
-  - DATABASE_URL=postgresql://coder:pg12@localhost:5432/greet_db
+  - DATABASE_URL=postgresql://postgres@localhost:5432/greet_db
 # before_script:
 #   - psql -c "CREATE DATABASE hold_name;" -U postgres
 #   - psql -c "CREATE TABLE hold_name(id serial not null primary key, names text not null, counter int not null);" -U postgres
