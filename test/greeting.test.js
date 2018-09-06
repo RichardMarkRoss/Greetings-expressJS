@@ -52,6 +52,13 @@ describe('testing the database functionality', function () {
         theGreetingsFac.greet('greg', 'isiXhosa');
         assert.strictEqual(await theGreetingsData.TheGreetCounter(), '1');
     });
+    // it('count the amount of times a single name has been greeted', async function () {
+    //     theGreetingsFac.greet('Richard', 'english');
+    //     theGreetingsFac.greet('Richard', 'english');
+    //     theGreetingsFac.greet('Richard', 'english');
+    //     theGreetingsFac.greet('Richard', 'english');
+    //     assert.strictEqual();
+    // });
 
     after(function () {
         pool.end();
