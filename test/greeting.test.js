@@ -36,21 +36,26 @@ describe('the greetings function basic test', function () {
 });
 
 describe('testing the database functionality', function () {
+
+    beforeEach(async function () {
+        await pool.query("delete from hold_name");
+    });
+
     it('test the counter if had to have one name inside of it', async function () {
-        theGreetingsFac.greet('Richard', 'english');
+        await theGreetingsData.dataHeld('Richard');
         assert.strictEqual(await theGreetingsData.TheGreetCounter(), '1');
     });
     it('test if the same name is passed into the data base it should not increment', async function () {
-        theGreetingsFac.greet('Richard', 'english');
-        theGreetingsFac.greet('Richard', 'afrikaans');
+        await theGreetingsData.dataHeld('Richard');
+        await theGreetingsData.dataHeld('Richard');
         assert.strictEqual(await theGreetingsData.TheGreetCounter(), '1');
     });
     it('test if there are three names greeted and two are the same it should return 2', async function () {
-        theGreetingsFac.greet('Richard', 'english');
-        theGreetingsFac.greet('greg', 'isiXhosa');
-        theGreetingsFac.greet('Richard', 'afrikaans');
-        theGreetingsFac.greet('greg', 'isiXhosa');
-        assert.strictEqual(await theGreetingsData.TheGreetCounter(), '1');
+        await theGreetingsData.dataHeld('Richard');
+        await theGreetingsData.dataHeld('greg');
+        await theGreetingsData.dataHeld('Richard');
+        await theGreetingsData.dataHeld('greg');
+        assert.strictEqual(await theGreetingsData.TheGreetCounter(), '2');
     });
     // it('count the amount of times a single name has been greeted', async function () {
     //     theGreetingsFac.greet('Richard', 'english');

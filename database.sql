@@ -1,4 +1,4 @@
-drop table hold_name;
+drop table hold_name cascade;
 
 create table hold_name
 (
