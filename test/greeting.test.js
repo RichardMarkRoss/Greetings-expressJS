@@ -36,9 +36,8 @@ describe('the greetings function basic test', function () {
 });
 
 describe('testing the database functionality', function () {
-
     beforeEach(async function () {
-        await pool.query("delete from hold_name");
+        await pool.query('delete from hold_name');
     });
 
     it('test the counter if had to have one name inside of it', async function () {
@@ -57,13 +56,6 @@ describe('testing the database functionality', function () {
         await theGreetingsData.dataHeld('greg');
         assert.strictEqual(await theGreetingsData.TheGreetCounter(), '2');
     });
-    // it('count the amount of times a single name has been greeted', async function () {
-    //     theGreetingsFac.greet('Richard', 'english');
-    //     theGreetingsFac.greet('Richard', 'english');
-    //     theGreetingsFac.greet('Richard', 'english');
-    //     theGreetingsFac.greet('Richard', 'english');
-    //     assert.strictEqual();
-    // });
 
     after(function () {
         pool.end();
