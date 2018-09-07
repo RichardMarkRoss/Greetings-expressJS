@@ -1,4 +1,8 @@
 language: node_js
+
+env:
+     - DATABASE_URL=postgresql://postgres@localhost:5432/greet_db
+
 node_js:
   - "v8.9.4"
 
