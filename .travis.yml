@@ -8,8 +8,8 @@ node_js:
 
 before_script:
   - psql -c 'create database  greet_db;' -U postgres
-  - psql -c 'create table hold_name(id serial not null primary key, names text not null, counter int not null);' -U postgres
-
+  - psql -U postgres -d greet_db -a -f database.sql
+  
 addons:
     apt:
     packages:
