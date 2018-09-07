@@ -1,10 +1,9 @@
 language: node_js
 node_js:
   - "v8.9.4"
-# before_script:
-#   - psql -c "CREATE DATABASE hold_name;" -U postgres
-#   - psql -c "CREATE TABLE hold_name(id serial not null primary key, names text not null, counter int not null);" -U postgres
+
 before_script:
+  - psql -c 'role coder password 'pg123';' -U postgres
   - psql -c 'create database  greet_db;' -U postgres
   - psql -c 'create table hold_name(id serial not null primary key, names text not null, counter int not null);' -U postgres
 
