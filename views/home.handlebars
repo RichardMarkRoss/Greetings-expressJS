@@ -2,19 +2,13 @@
     <div class="box1">
         <h3>Insert your name and watch it greet you!</h3>
         <p>
-            <br>
-            <div class="box3">
-                <span class="total ">
-                    <span class="displayTheName"></span>
-                </span>
-            </div>
-            <label>Name</label>
             <form action="/greet" method='post'>
+            <label>Name:
                 <input type="text" name ="name" class="myText" value="{{setValues.holdName}}">
-            
-            <span class="counter">counter: {{theGreetCounter}}
-                <span class="displayTheCount"></span>
+            <span class="displayTheCount">{{theGreetCounter}}
             </span>
+            </label>
+         
         </p>
     </div>
     <div class="radioBtnDiv">
@@ -45,7 +39,7 @@
             </form>
                 <div class="box4">
                     <span class="counter ">
-                        <span class="displayTheCount">
+                        <span class="displayTheName">
                             {{greetMessage}}
                         </span>
                     </span>
@@ -53,7 +47,7 @@
             <br>
             <form action="/greeted" method='get'>
                 <button class="btnResetValue button" type="submit" name="actions">
-                    <span>status</span>
+                    <span>greeted</span>
                 </button>
             </form>
     </div>

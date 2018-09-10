@@ -60,9 +60,10 @@ app.post('/greet', async function (req, res) {
 app.get('/greeted/:name/', async function (req, res) {
     let names = req.params.name;
     try {
-        let result = await pool.query('select * from hold_name where names = $1', [names]);
+        let counter = await greetingsData.showResultsOfNameChosen(names);
         res.render('names', {
-            names: result.rows
+            names,
+            counter
         });
     } catch (err) {
         res.send(err.stack);
@@ -70,9 +71,9 @@ app.get('/greeted/:name/', async function (req, res) {
 });
 app.get('/greeted', async function (req, res) {
     try {
-        let result = await pool.query('select * from hold_name');
+        let result = await greetingsData.result();
         res.render('list', {
-            names: result.rows
+            names: result
         });
     } catch (err) {
         res.send(err.stack);
@@ -80,9 +81,10 @@ app.get('/greeted', async function (req, res) {
 });
 
 app.get('/reset', async function (req, res) {
-    await pool.query('delete from hold_name;');
-    await pool.query('alter sequence hold_name_id_seq restart 1;');
-    res.redirect('/');
+    let deleteDataBase = await greetingsData.clearDataBase();
+    res.render('home', {
+        deleteDataBase
+    });
 });
 
 let PORT = process.env.PORT || 4009;

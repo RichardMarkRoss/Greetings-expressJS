@@ -33,6 +33,10 @@ describe('the greetings function basic test', function () {
     it('if name is an INT the in should return warning', function () {
         assert.strictEqual(theGreetingsFac.greet(1, 'english'), 'Please insert name and language');
     });
+
+    it('if name is an INT the in should return warning', function () {
+        assert.strictEqual(theGreetingsFac.greet('name'), 'Please insert name and language');
+    });
 });
 
 describe('testing the database functionality', function () {
