@@ -24,8 +24,9 @@ const pool = new Pool({
     ssl: useSSL
 });
 
-const greetings = greetingsFactory(pool);
 const greetingsData = greetingsDataBase(pool);
+
+const greetings = greetingsFactory(greetingsData);
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
@@ -47,15 +48,10 @@ app.get('/', async function (req, res) {
     });
 });
 app.post('/greet', async function (req, res) {
-    let type = req.body.lang;
+    let languageType = req.body.lang;
     let name = req.body.name;
-    let greetMessage = greetings.greet(name, type);
-    await greetingsData.dataHeld(name);
-    let theGreetCounter = await greetingsData.TheGreetCounter();
-    res.render('home', {
-        greetMessage,
-        theGreetCounter
-    });
+    let result = await greetings.greet(name, languageType);
+    res.render('home', result);
 });
 app.get('/greeted/:name/', async function (req, res) {
     let names = req.params.name;

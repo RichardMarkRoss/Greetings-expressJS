@@ -1,27 +1,27 @@
-module.exports = function (pool) {
-    var holdName = '';
+module.exports = function (greetingsData) {
+    async function greet (name, langChosen) {
+        let greetMessage = 'Please insert name and language';
 
-    function greet (name, langChosen) {
-        let langchose = langChosen;
-        var greet = '';
+        if (isNaN(name) && name !== '' && langChosen !== '') {
+            await greetingsData.dataHeld(name);
 
-        if (isNaN(name) && name !== '') {
-            holdName = name.toUpperCase();
-
+            var holdName = name.toUpperCase();
+            let langchose = langChosen;
             if (langchose === 'english') {
-                greet = 'HELLO ' + holdName;
+                greetMessage = 'HELLO ' + holdName;
             } else if (langchose === 'afrikaans') {
-                greet = 'GOEIE DAG ' + holdName;
+                greetMessage = 'GOEIE DAG ' + holdName;
             } else if (langchose === 'isiXhosa') {
-                greet = 'USUKU OLUMNWANDI ' + holdName;
-            } else {
-                return 'Please insert name and language';
+                greetMessage = 'USUKU OLUMNWANDI ' + holdName;
             }
-
-            return greet;
-        } else {
-            return 'Please insert name and language';
         }
+
+        let theGreetCounter = await greetingsData.TheGreetCounter();
+
+        return {
+            greetMessage,
+            theGreetCounter
+        };
     }
 
     return {

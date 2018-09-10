@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">40% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>16/16</span>
+        <span class='fraction'>6/15</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">45.45% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>10/10</span>
+        <span class='fraction'>5/11</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,16 +35,16 @@
         <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">40% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>16/16</span>
+        <span class='fraction'>6/15</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -76,60 +76,66 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">module.exports = function (pool) {
-    var holdName = '';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">module.exports = function (greetingsData) {
+    async function greet (name, langChosen) {
+        // var greet = '';
 &nbsp;
-    function greet (name, langChosen) {
-        let langchose = langChosen;
-        var greet = '';
+        let greetMessage = 'Please insert name and language';
 &nbsp;
-        if (isNaN(name) &amp;&amp; name !== '') {
-            holdName = name.toUpperCase();
+        if (isNaN(name) &amp;&amp; name !== '' &amp;&amp; langChosen !== '') {
+            await greetingsData.dataHeld(name);
 &nbsp;
-            if (langchose === 'english') {
-                greet = 'HELLO ' + holdName;
-            } else if (langchose === 'afrikaans') {
-                greet = 'GOEIE DAG ' + holdName;
-            } else if (langchose === 'isiXhosa') {
-                greet = 'USUKU OLUMNWANDI ' + holdName;
-            } else {
-                return 'Please insert name and language';
+            var holdName = <span class="cstat-no" title="statement not covered" >name.toUpperCase();</span>
+            let langchose = <span class="cstat-no" title="statement not covered" >langChosen;</span>
+<span class="cstat-no" title="statement not covered" >            if (langchose === 'english') {</span>
+<span class="cstat-no" title="statement not covered" >                greetMessage = 'HELLO ' + holdName;</span>
+            } else <span class="cstat-no" title="statement not covered" >if (langchose === 'afrikaans') {</span>
+<span class="cstat-no" title="statement not covered" >                greetMessage = 'GOEIE DAG ' + holdName;</span>
+            } else <span class="cstat-no" title="statement not covered" >if (langchose === 'isiXhosa') {</span>
+<span class="cstat-no" title="statement not covered" >                greetMessage = 'USUKU OLUMNWANDI ' + holdName;</span>
             }
-&nbsp;
-            return greet;
-        } else {
-            return 'Please insert name and language';
         }
+&nbsp;
+        let theGreetCounter = await greetingsData.TheGreetCounter();
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            greetMessage,
+            theGreetCounter
+        };
     }
 &nbsp;
     return {
@@ -142,7 +148,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Sep 10 2018 10:39:58 GMT+0200 (SAST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Sep 10 2018 13:34:17 GMT+0200 (SAST)
 </div>
 </div>
 <script src="prettify.js"></script>
