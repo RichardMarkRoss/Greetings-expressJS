@@ -24,32 +24,32 @@ describe('the greetings function basic test', function () {
     it('greetings function test greeting in English', async function () {
         assert.deepEqual(await theGreetingsFac.greet('Richard', 'english'), {
             greetMessage: 'HELLO RICHARD',
-            theGreetCounter: '2'
+            theGreetCounter: '1'
         });
     });
     it('greetings function test greeting in Afrikaans', async function () {
         assert.deepEqual(await theGreetingsFac.greet('Richard', 'afrikaans'), {
             greetMessage: 'GOEIE DAG RICHARD',
-            theGreetCounter: '2'
+            theGreetCounter: '1'
         });
     });
     it('greetings function test greeting in isiXhosa', async function () {
         assert.deepEqual(await theGreetingsFac.greet('Richard', 'isiXhosa'), {
             greetMessage: 'USUKU OLUMNWANDI RICHARD',
-            theGreetCounter: '2'
+            theGreetCounter: '1'
         });
     });
     it('if name is an INT the in should return warning', async function () {
         assert.deepEqual(await theGreetingsFac.greet(1, 'english'), {
             greetMessage: 'Please insert name and language',
-            theGreetCounter: '2'
+            theGreetCounter: '1'
         });
     });
 
     it('if name is an INT the in should return warning', async function () {
         assert.deepEqual(await theGreetingsFac.greet('name'), {
             greetMessage: 'Please insert name and language',
-            theGreetCounter: '3'
+            theGreetCounter: '2'
         });
     });
 });
