@@ -2,7 +2,8 @@ const exphbs = require('express-handlebars');
 const express = require('express');
 const app = express();
 const greetingsFactory = require('./greetings-factory');
-const greetingsDataBase = require('./dataBase');
+const greetingsDataBase = require('./greetingsDataFunction');
+const routesGreet = require('./routes/routes');
 
 const bodyParser = require('body-parser');
 // const flash = require('express-flash');
@@ -28,6 +29,7 @@ const greetingsData = greetingsDataBase(pool);
 
 const greetings = greetingsFactory(greetingsData);
 
+const routes = routesGreet(greetingsData, greetings);
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
@@ -41,47 +43,11 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static('public'));
 
-app.get('/', async function (req, res) {
-    let theGreetCounter = await greetingsData.TheGreetCounter();
-    res.render('home', {
-        theGreetCounter
-    });
-});
-app.post('/greet', async function (req, res) {
-    let languageType = req.body.lang;
-    let name = req.body.name;
-    let result = await greetings.greet(name, languageType);
-    res.render('home', result);
-});
-app.get('/greeted/:name/', async function (req, res) {
-    let names = req.params.name;
-    try {
-        let counter = await greetingsData.showResultsOfNameChosen(names);
-        res.render('names', {
-            names,
-            counter
-        });
-    } catch (err) {
-        res.send(err.stack);
-    }
-});
-app.get('/greeted', async function (req, res) {
-    try {
-        let result = await greetingsData.result();
-        res.render('list', {
-            names: result
-        });
-    } catch (err) {
-        res.send(err.stack);
-    }
-});
-
-app.get('/reset', async function (req, res) {
-    let deleteDataBase = await greetingsData.clearDataBase();
-    res.render('home', {
-        deleteDataBase
-    });
-});
+app.get('/', routes.index);
+app.post('/greet', routes.home);
+app.get('/greeted/:name/', routes.namesChosen);
+app.get('/greeted', routes.result);
+app.get('/reset', routes.reset);
 
 let PORT = process.env.PORT || 4009;
 
