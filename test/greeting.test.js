@@ -1,6 +1,6 @@
 let assert = require('assert');
 let factory = require('../greetings-factory');
-let data = require('../dataBase');
+let data = require('../greetingsDataFunction');
 const pg = require('pg');
 const Pool = pg.Pool;
 
